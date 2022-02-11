@@ -9,6 +9,8 @@ spec:
   selector:
     matchLabels:
       app: python-mysql
+  strategy: 
+    type: Recreate
   template:
     metadata:
       labels:
@@ -18,8 +20,8 @@ spec:
         - name: python-mysql
           image: quay.io/prajwal_gawande/python-mysql:1.0
           ports:
-            - containerPort: 5000
-              protocol: TCP
+          - containerPort: 5000
+            protocol: TCP
 ---
 
 kind: Service
@@ -34,8 +36,7 @@ spec:
       protocol: TCP
       port: 5000
       targetPort: 5000
-  internalTrafficPolicy: Cluster
-  type: ClusterIP
   selector:
     app: python-mysql
+  type: LoadBalancer
 
