@@ -38,11 +38,10 @@ metadata:
     app: python-mysql
 spec:
   ports:
-    - name: 5000-tcp
-      protocol: TCP
+    - protocol: TCP
       port: 5000
       targetPort: 5000
   selector:
     app: python-mysql
-  type: LoadBalancer
+  type: NodePort
 
