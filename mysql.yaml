@@ -13,25 +13,20 @@ spec:
     metadata:
       labels:
         app: mysql
-    spec:
-      volumes:
-        - name: mysql-1
-          emptyDir: {}
+    spec:   
       containers:
-        - name: mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: root
-          ports:
-            - containerPort: 3306
-              protocol: TCP
-            - containerPort: 33060
-              protocol: TCP
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - name: mysql-1
-              mountPath: /var/lib/mysql
-          image: quay.io/prajwal_gawande/mysql:5.7
+      - image: quay.io/prajwal_gawande/mysql:5.7
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-url
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+          name: mysql
       restartPolicy: Always
 ---
 
@@ -43,16 +38,10 @@ metadata:
     app: mysql
 spec:
   ports:
-    - name: 3306-tcp
+    - name: mysql
       protocol: TCP
       port: 3306
       targetPort: 3306
-    - name: 33060-tcp
-      protocol: TCP
-      port: 33060
-      targetPort: 33060
-  internalTrafficPolicy: Cluster
-  type: ClusterIP
   selector:
     app: mysql
 
