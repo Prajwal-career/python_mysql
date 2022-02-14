@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: python-mysql
-        image: quay.io/prajwal_gawande/python-mysql:1.0
+        image: quay.io/prajwal_gawande/python-mysql:2.0
         ports:
         - containerPort: 5000
           protocol: TCP
