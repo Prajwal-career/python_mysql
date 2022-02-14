@@ -28,6 +28,12 @@ spec:
               configMapKeyRef:
                 name: mysql-config
                 key: mysql-url
+          - name: mysql-root-password
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql-root-password
+                
 ---
 
 kind: Service
