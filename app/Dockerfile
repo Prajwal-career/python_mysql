@@ -12,7 +12,7 @@ RUN apt-get -y update
 
 RUN groupadd -r user && useradd -r -g user user
 
-USER prajwal
+USER user
 
 COPY app.py /app
 
